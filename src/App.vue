@@ -21,18 +21,18 @@
       </md-toolbar>
 
       <md-list>
-        <md-list-item>
+        <md-list-item @click="toggleLeftSidenav">
          <md-icon>view_list</md-icon>
           <router-link to="/todos">todosVue</router-link>
         </md-list-item>
 
-        <md-list-item>
+        <md-list-item @click="toggleLeftSidenav">
          <md-icon>security</md-icon>
           <router-link to="/tokens">Tokens</router-link>
         </md-list-item>
       </md-list>
     </md-sidenav>
-    TODO contingut
+    <router-view></router-view>
   </div>
 </template>
 
