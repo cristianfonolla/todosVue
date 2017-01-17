@@ -7,6 +7,13 @@ import 'vue-material/dist/vue-material.css'
 import VueRouter from 'vue-router'
 import Tokens from 'components/Tokens'
 import Todos from 'components/Todos'
+import Axios from 'axios'
+
+window.axios = Axios
+Vue.prototype.$http = Axios
+
+// import SweetAlert from 'sweetalert'
+// windows.sweetAlert = SweetAlert
 
 const routes = [
     { path: '/todos', component: Todos },
