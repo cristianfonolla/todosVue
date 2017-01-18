@@ -8,8 +8,10 @@ import VueRouter from 'vue-router'
 import Tokens from 'components/Tokens'
 import Todos from 'components/Todos'
 import Axios from 'axios'
+import querystring from 'querystring'
 
 window.axios = Axios
+window.querystring = querystring
 Vue.prototype.$http = Axios
 
 import SweetAlert from 'sweetalert'
@@ -21,6 +23,8 @@ const routes = [
 ]
 
 const router = new VueRouter({
+    // history mode html5 per borrar #
+  mode: 'history',
   routes
 })
 
