@@ -27,30 +27,37 @@
     data () {
       return {
         todos: [],
-        authorized: false
+        authorized: false,
+        token: null
       }
     },
     created () {
       var token = this.extractToken(document.location.hash)
       if (token) this.saveToken(token)
-      if (this.fetchToken()) {
+      if (this.token == null) this.token = this.fetchToken()
+      if (this.token) {
         this.authorized = true
+        this.fetchData()
       } else {
         this.authorized = false
       }
-      this.fetchData()
     },
     methods: {
       fetchData: function () {
         return this.fetchPage(1)
       },
       fetchPage: function (page) {
+        if (this.token != null) {
+          this.$http.defaults.headers.common['Authorization'] = 'Bearer ' + this.token
+          console.log('HEY TOKEN: ' + this.token)
+        }
         this.$http.get('http://todos.dev:8000/api/v1/task?page=' + page).then((response) => {
           console.log(response.data)
           this.todos = response.data.data
         }, (response) => {
           // sweetAlert('Oops...', 'Something went wrong!', 'error')
           console.log(response.data)
+          // this.authorized = false
         })
       },
       extractToken: function (hash) {
@@ -59,6 +66,9 @@
       },
       logout: function () {
         window.localStorage.removeItem(STORAGE_KEY)
+        // TODO: only if HTTP response code 401
+        // TODO: mostrar amb una bona UI/UE -> SweetAlert
+        window.sweetAlert('Oops...', 'Something went wrong!', 'error')
         this.authorized = false
       },
       connect: function () {
@@ -79,5 +89,5 @@
       }
     }
   }
-
+// Traure nom del usuari i la seva foto amb les metadades que retorna el todosBackend.
 </script>
