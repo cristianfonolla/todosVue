@@ -8,12 +8,13 @@ import VueRouter from 'vue-router'
 import Axios from 'axios'
 import querystring from 'querystring'
 import auth from './services/auth'
-import '../node_modules/sweetalert/dist/sweetalert.min'
-import '../node_modules/sweetalert/dist/sweetalert.css'
-import routes from './services/routes'
-import sweetAlert from 'sweetalert'
+import router from './services/router'
+import 'animate.css/animate.min.css'
+import 'roboto-fontface/css/roboto/roboto-fontface.css'
+import 'material-design-icons/iconfont/material-icons.css'
+import gravatar from 'gravatar'
 
-window.sweetAlert = sweetAlert
+window.gravatar = gravatar
 window.axios = Axios
 window.querystring = querystring
 Vue.prototype.$http = Axios
@@ -31,11 +32,22 @@ if (auth.loggedIn()) {
   }
 }
 
-const router = new VueRouter({
-    // history mode html5 per borrar #
-  mode: 'history',
-  routes
+// Theme
+
+Vue.material.registerTheme('cristian', {
+  primary: {
+    color: 'red',
+    hue: 700
+  },
+  accent: 'black',
+  warn: 'red',
+  background: {
+    color: 'blue',
+    hue: 300
+  }
 })
+
+Vue.material.setCurrentTheme('cristian')
 
 /* eslint-disable no-new */
 new Vue({
