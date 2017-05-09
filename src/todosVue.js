@@ -1,6 +1,6 @@
 const todosVue = {
   STORAGE_KEY: 'todosvue_token',
-  AUTH_CLIENT_ID: '3',
+  AUTH_CLIENT_ID: '4',
   // AUTH_REDIRECT_URI: 'http://localhost:8095/login',
   AUTH_REDIRECT_URI: 'http://todosvue.cristianfonolla.2dam.acacha.org/login',
   API_PROFILE_URL: 'http://todosbackend.cristianfonolla.2dam.acacha.org:8080/api/v1/user',
