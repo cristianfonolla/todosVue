@@ -2,52 +2,60 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
+
 import VueMaterial from 'vue-material'
 import 'vue-material/dist/vue-material.css'
+import 'roboto-fontface/css/roboto/roboto-fontface.css'
+import 'material-design-icons/iconfont/material-icons.css'
 import VueRouter from 'vue-router'
 import Axios from 'axios'
 import querystring from 'querystring'
-import auth from './services/auth'
-import router from './services/router'
-import 'animate.css/animate.min.css'
-import 'roboto-fontface/css/roboto/roboto-fontface.css'
-import 'material-design-icons/iconfont/material-icons.css'
-import gravatar from 'gravatar'
+import md5 from 'js-md5'
 
-window.gravatar = gravatar
+import 'fastclick/lib/fastclick'
+
 window.axios = Axios
 window.querystring = querystring
 Vue.prototype.$http = Axios
 
-Vue.use(VueMaterial)
-Vue.use(VueRouter)
+window.md5 = md5
 
-window.axios.defaults.headers.common = {
-  'X-Requested-With': 'XMLHttpRequest'
-}
+import routes from './routes.js'
+import auth from './auth'
 
-if (auth.loggedIn()) {
-  window.axios.defaults.headers.common = {
-    'Authorization': auth.getAuthHeader()
-  }
-}
+import 'animate.css/animate.css'
 
-// Theme
+const router = new VueRouter({
+  mode: 'history',
+  routes
+})
 
-Vue.material.registerTheme('cristian', {
-  primary: {
-    color: 'red',
-    hue: 700
-  },
-  accent: 'black',
-  warn: 'red',
-  background: {
-    color: 'blue',
-    hue: 300
+router.beforeEach((to, from, next) => {
+  if (to.meta.auth === true && !auth.loggedIn()) {
+    next('/login')
+  } else {
+    next()
   }
 })
 
-Vue.material.setCurrentTheme('cristian')
+Vue.use(VueMaterial)
+Vue.use(VueRouter)
+
+// Vue material themes
+Vue.material.registerTheme('custom', {
+  primary: 'black',
+  accent: {
+    color: 'green',
+    hue: 800
+  },
+  warn: 'red',
+  background: {
+    color: 'green',
+    hue: 100
+  }
+})
+// Apply themes
+Vue.material.setCurrentTheme('custom')
 
 /* eslint-disable no-new */
 new Vue({

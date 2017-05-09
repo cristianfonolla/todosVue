@@ -1,8 +1,6 @@
 <template>
     <div>
-        <header-component/>
-        <div>Route not found</div>
-        <other-component/>
+        ROUTE NOT FOUND
     </div>
 </template>
 <style>

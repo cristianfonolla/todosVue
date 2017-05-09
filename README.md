@@ -1,6 +1,6 @@
-# todosvue
+# todos-vue
 
-> Client todosVue
+> Vue Client
 
 ## Build Setup
 
